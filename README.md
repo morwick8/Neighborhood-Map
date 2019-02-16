@@ -66,3 +66,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+Acknowledgements:
+
+For this project I used guidance from API-University on youtube.com on using Unsplash APIs, elharony on youtube.com on using google maps api in react, and from react, front-end applications, and google maps lesson examples from udacity.com.
