@@ -31,6 +31,9 @@ getPics() {
            unsplashJSON: result.unsplashJSON
          });
        },
+       // Note: it's important to handle errors here
+       // instead of a catch() block so that we don't swallow
+       // exceptions from actual bugs in components.
        (error) => {
          this.setState({
            isLoaded: true,
@@ -38,24 +41,7 @@ getPics() {
          });
        }
      )
-}
-
-convertPics() {
-    
-    var unsplashArr  = [],
-         keys = Object.keys(this.state.unsplashJSON);
-     
-     for(var i=0,n=keys.length;i<n;i++){
-       var key  = keys[i];
-       unsplashArr[key] = this.state.unsplashJSON[key];
-       console.log(unsplashArr[key].user.name);
-       console.log(unsplashArr[key].urls.small);
-       console.log(key)
-     }
-     this.setState({pics: unsplashArr})
  }
- 
-
 
     initMap = () =>  {
        const map = new window.google.maps.Map(document.getElementById('map'), {
@@ -75,11 +61,7 @@ convertPics() {
          return (
            <main>
              <div id="map"></div>
-             
-             <div> 
-             <h1>This is</h1>
-             <p>{this.state.unsplashJSON[0]}</p>
-             </div>
+
            </main>
          )
        }
