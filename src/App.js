@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 import request from 'request'
-import axios from 'axios'
+//import axios from 'axios'
+import * as growers from './data/growers.json'
+//import GetMarker from './GetMarker'
+import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react'
+import Header from './Header.js'
 
-class App extends Component {
+class App extends React.Component {
     
     constructor(props) {
         super(props);
@@ -12,13 +16,15 @@ class App extends Component {
                 pics: [],
                 growers: [],
                 isLoaded: false,
-                error: null
+                error: null,
+                lat: ''
             }    
     }
 
     componentDidMount() {
         this.renderMap();
-        this.getPics()
+        this.getPics();
+ //       <GetMarker/>
 }
 
 getPics() {
@@ -48,26 +54,47 @@ getPics() {
          center: {lat: 40.34383, lng: -104.8534},
          zoom: 14
        })
+
+ //      this.state.growers.map(grower => {
+    var highlightedIcon = {
+        url:  'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|FFFF24|40|_|%E2%80%A2'}
+
+    var defaultIcon = {
+        url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+    }
+       var marker = new window.google.maps.Marker({
+    position: {lat: 40.34383, lng: -104.8534},
+    map: map,
+    animation: window.google.maps.Animation.DROP,
+    title: 'Hello World!'
+   });
+
+       var infowindow = new window.google.maps.InfoWindow ({
+        content: "This in the infowindow"
+       })
+
+       marker.addListener('mouseover', function() {
+           this.setIcon(highlightedIcon);
+         });
+         marker.addListener('mouseout', function() {
+        this.setIcon(defaultIcon);
+        });
+
+      marker.addListener('click', function() {
+        infowindow.open(map, this)
+      });
+
+
+//            })
      }
 
      renderMap = () => {
-         mapScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyAx9qqXmxIZck6A-W_InVovJFhL5Eg7xRo&callback=initMap")
+         this.mapScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyAx9qqXmxIZck6A-W_InVovJFhL5Eg7xRo&callback=initMap")
          window.initMap = this.initMap
-     }
+ 
+    } 
      
-
-
-     render() {
-         return (
-           <main>
-             <div id="map"></div>
-
-           </main>
-         )
-       }
-     }
-
-     function mapScript(url) {
+      mapScript = (url) => {
          var ref = window.document.getElementsByTagName("script")[0]
          var script = window.document.createElement("script")
          script.src = url
@@ -77,7 +104,29 @@ getPics() {
 }
 
 
+render() {
+  return (
+    <main>
+    <div className="container" role="main">
+        <Header/>
+        <div id="map">
+
+<Marker
+    name={'Your position'}
+    position={{lat: 40.34383, lng: -104.8534}}
+    icon={{
+      url: "/path/to/custom_icon.png",
+    }} />
+        </div>
+    </div>
+    </main>
+  )
+}
+}
 
 
+
+
+
+export default App;
     
-export default App

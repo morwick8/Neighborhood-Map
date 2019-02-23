@@ -27,3 +27,19 @@ request ({url:'https://api.unsplash.com/collections/4297159/photos?&client_id=4f
 
     }
 })
+
+//
+//         <Marker onClick={this.onMarkerClick}
+    //            name={'Current location'} />
+      //      <InfoWindow onClose={this.onInfoWindowClose}>
+    //          <div>
+      //          <h1>{this.state.selectedPlace.name}</h1>
+  //            </div>
+  //          </InfoWindow>
+    //         <GetMarker/>
+
+
+    export default GoogleApiWrapper({
+  apiKey: (AIzaSyAx9qqXmxIZck6A-W_InVovJFhL5Eg7xRo)
+}) (App)
+

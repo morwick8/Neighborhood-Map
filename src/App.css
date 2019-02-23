@@ -2,9 +2,6 @@
     text-align: center;
 }
 
-#map {
-     height: 50vh;
- }
  
  html, body {
      height: 100%;
@@ -12,42 +9,43 @@
      padding: 0;
  }
 
+ .header-content {
+  background-color: #faf2ff;
+ }
+
 .nav-bar {
      max-width: 75rem;
      margin-left: auto;
      margin-right: auto;
      height: 5rem;
-     padding: 0 1.5em;
-     background-color: #f7edf0
+     padding: 0;
 }
 
-.navbar-toggle {
+.navbar-hamburger {
     display: inline-block;
-    width: 0.5rem;
-    height: 0.5rem;
+    width: 10%;
+    height: 45px;
+    background-color: #faf2ff;
+    padding: 0;
 }
 
-.hamburger-line {
-  width: 35px;
-  height: 5px;
-  background-color: #540a22;
-  margin: 6px 6px 6px 6px;
 
-}
 
 .navbar-logo {
     position: relative;
     display: inline-block;
-    margin-right: 2%;
-    width: 10%;
 }
 
 .navbar-title {
+    margin: 0;
+    position: absolute;
     display: inline-block;
-    align-items: center;
-    color: #540a22;
+    color: #46394e;
     width: 75%;
-}
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 0.7em;
+    margin-left: 0.7em;
+  }
 
 @charset "utf-8";
 /* CSS Document */
@@ -59,7 +57,6 @@ body,td,th,p{
   line-height: 1.5;
 }
 body {
-  background-color: #fdfdfd;
   margin: 0;
   position:relative;
 }
@@ -153,10 +150,6 @@ nav h1 a {
   content: "/\00a0";
 }
 
-/* Add a color to all links inside the list */
-  color: #0275d8;
-  text-decoration: none;
-}
 
 /* Add a color on mouse-over */
 #breadcrumb li a:hover {
@@ -166,11 +159,11 @@ nav h1 a {
 /* ====================== Map ====================== */
 
 #map {
-  height: 300px;
-  width: 100%;
+   width: 100%;
   background-color: #ccc;
   display: inline-block;
-}
+  height: 80vh;
+ }
 
 /* ====================== Restaurant Filtering ====================== */
 
@@ -197,7 +190,7 @@ nav h1 a {
   font-size: 0.75em;
   height: 50px;
   letter-spacing: 0;
-  margin: 0 0.5em 
+  margin: 0 0.5em;
   width: 30%;
   text-align: center;
   padding: 10px;
@@ -362,3 +355,4 @@ nav h1 a {
 	body {
 		width:900px;
 	}
+}
