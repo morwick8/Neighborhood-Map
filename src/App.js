@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import request from 'request'
+import request from 'request';
 //import axios from 'axios'
-import * as growers from './data/growers.json'
+import * as growers from './data/growers.json';
 //import GetMarker from './GetMarker'
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react'
-import Header from './Header.js'
+import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import Header from './Header.js';
+import MakeInfoWindow from './MakeInfoWindow';
+import ReactDOMServer from 'react-dom/server'
 
 class App extends React.Component {
     
@@ -51,27 +53,29 @@ getPics() {
 
     initMap = () =>  {
        const map = new window.google.maps.Map(document.getElementById('map'), {
-         center: {lat: 40.34383, lng: -104.8534},
+         center: {lat: 40.33483, lng: -104.8534},
          zoom: 14
        })
 
  //      this.state.growers.map(grower => {
     var highlightedIcon = {
-        url:  'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|FFFF24|40|_|%E2%80%A2'}
+        url:  'http://maps.google.com/mapfiles/ms/icons/green-dot.png'}
 
     var defaultIcon = {
         url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
     }
        var marker = new window.google.maps.Marker({
-    position: {lat: 40.34383, lng: -104.8534},
+    position: {lat: 40.33483, lng: -104.8534},
     map: map,
     animation: window.google.maps.Animation.DROP,
     title: 'Hello World!'
    });
 
        var infowindow = new window.google.maps.InfoWindow ({
-        content: "This in the infowindow"
+        
        })
+
+       let contentString = ReactDOMServer.renderToString(<MakeInfoWindow/>)
 
        marker.addListener('mouseover', function() {
            this.setIcon(highlightedIcon);
@@ -81,8 +85,9 @@ getPics() {
         });
 
       marker.addListener('click', function() {
+        infowindow.setContent(contentString)
         infowindow.open(map, this)
-      });
+     });
 
 
 //            })
