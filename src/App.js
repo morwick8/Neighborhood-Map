@@ -17,8 +17,7 @@ class App extends React.Component {
         super(props);
             this.state = {
                 imgs: {},
-                pics: [],
-                growers: [],
+                growers: {},
                 isLoading: false,
                 error: null,
                 lat: ''
@@ -27,11 +26,11 @@ class App extends React.Component {
 
     componentDidMount() {
         this.renderMap();
-        this.getPics();
- //       <GetMarker/>
+        this.getImgs();
+        this.getGrowers()
 }
 
-getPics() {
+getImgs() {
     axios
       .get(
         `https://api.unsplash.com/collections/4297159/photos?page=1&per_page=29&client_id=4fc5dec670dc9f6f8fa81b1c5abfe37c988fab2a510da8183f940463d8482203`
@@ -44,6 +43,18 @@ getPics() {
       });
      
  }
+
+ getGrowers() {
+   axios.get('./data/growers.json') // JSON File Path
+   .then( response => {
+     this.setState({
+     growers: response.data
+   });
+ })
+ .catch(function (error) {
+   console.log(error);
+ });
+}
 
     initMap = () =>  {
        const map = new window.google.maps.Map(document.getElementById('map'), {

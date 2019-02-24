@@ -1,41 +1,42 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-var jsonData = require('./data/growers.json');
+import * as growers from './data/growers.json'
+import MakeMarker from './MakeMarker'
+
+//var jsonData = require('./data/growers.json');
 
 
 
 class GetMarker extends React.Component {
 
-state = {
-	growers: {}
+ static propTypes = {}
+        growers: PropTypes.Object.isRequired,
+        imgs: PropTypes.Object.isRequired
 }
-	
+ 
 render() {
-	return (
-//	var data;
-
-	this.loadJSON()
-)}
+  const growers = props.growers
+  const imgs = props.imgs
+  let growersMarkers = '';
+ 
+  
+    growersMarkers = growers.map( obj => {
+      return (
+        <MakeMarker 
+        	key={obj.id} 
+        	id={obj.id} 
+        	address={obj.address} 
+        	name={obj.name}
+        	neighborhood={obj.neighborhood}
+    			lat={obj.latlng.lat}
+    			lng={obj.latlng.lng}
+    		/>
+ 			)
+ 	})
+   
+ 
+   
 }
-
-	function loadJSON(jsongrowers, callback) {
-		var jsonObj = new XMLHttpRequest();
-		jsonObj.open('GET', "./data/growers.json", true);
-		jsonObj.onload = () => {
-			if (jsonObj.status === 200) {
-				const json = JSON.parse(jsonObj.responseText);
-				this.setState({growers:json}) ;
-				callback(null, this.state.growers);
-			} else {
-				const error = ('Request failed. Returned status of {jsonObj.status}');
-				callback(error, null);
-			}
-		}
-	}
-
-
-		
-
 
 
 export default GetMarker
