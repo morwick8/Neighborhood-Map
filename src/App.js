@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
 import './App.css';
 import request from 'request';
-//import axios from 'axios'
+import axios from 'axios'
 import * as growers from './data/growers.json';
 //import GetMarker from './GetMarker'
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import Header from './Header.js';
 import MakeInfoWindow from './MakeInfoWindow';
 import ReactDOMServer from 'react-dom/server'
+import PostPic from './PostPic'
+import ImgList from './ImgList'
 
 class App extends React.Component {
     
     constructor(props) {
         super(props);
             this.state = {
-                unsplashJSON: {},
+                imgs: {},
                 pics: [],
                 growers: [],
-                isLoaded: false,
+                isLoading: false,
                 error: null,
                 lat: ''
             }    
@@ -30,25 +32,17 @@ class App extends React.Component {
 }
 
 getPics() {
-   fetch('https://api.unsplash.com/collections/4297159/photos?&client_id=4fc5dec670dc9f6f8fa81b1c5abfe37c988fab2a510da8183f940463d8482203&per_page=29')
-     .then(res => res.json())
-     .then(
-       (result) => {
-         this.setState({
-           isLoaded: true,
-           unsplashJSON: result.unsplashJSON
-         });
-       },
-       // Note: it's important to handle errors here
-       // instead of a catch() block so that we don't swallow
-       // exceptions from actual bugs in components.
-       (error) => {
-         this.setState({
-           isLoaded: true,
-           error
-         });
-       }
-     )
+    axios
+      .get(
+        `https://api.unsplash.com/collections/4297159/photos?page=1&per_page=29&client_id=4fc5dec670dc9f6f8fa81b1c5abfe37c988fab2a510da8183f940463d8482203`
+      )
+      .then(data => {
+        this.setState({ imgs: data.data, loadingState: false });
+      })
+      .catch(err => {
+        console.log('Error happened during fetching!', err);
+      });
+     
  }
 
     initMap = () =>  {
@@ -122,7 +116,13 @@ render() {
     icon={{
       url: "/path/to/custom_icon.png",
     }} />
-        </div>
+    </div>
+    <div>
+
+          {this.state.isLoading
+            ? <p>Loading</p>
+            : <ImgList data={this.state.imgs} />}
+            </div>
     </div>
     </main>
   )
