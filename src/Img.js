@@ -4,23 +4,22 @@ import PropTypes from 'prop-types'
 class Img extends React.Component {
 
 static propTypes = {
-	id: PropTypes.number.isRequired,
-	imgs: PropTypes.object.isRequired
-};
+
+	img: PropTypes.object.isRequired
+}
 
 render() {
-		const imgs = this.props.imgs
-		const img = imgs[this.props.id]
+		const {img} = this.props
 
 	return (
 		<div>
-		<a href={img.link}>
-			<img src={img.url} alt={img.description} />
-		</a>
+			<a href={img.links.html}>
+				<img src={img.urls.thumb} alt={img.description} />
+			</a>
 		<p>
 			<span>Photo by </span>
-			<a href={img.user}>{img.name}</a>
-			<a href={img.link}> See on Unsplash</a>
+			<a href={img.user.links.html}>{img.user.name}</a>
+			<a href={img.links.html}> See on Unsplash.com</a>
 		</p>
 		</div>
 	)

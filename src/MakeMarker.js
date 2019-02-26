@@ -3,45 +3,48 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import MakeInfoWindow from './MakeInfoWindow'
+import ReactDOMServer from 'react-dom/server'
 
 class MakeMarker extends React.Component {
 
 static propTypes = {
-            growers: PropTypes.object.isRequired,
-            imgs: PropTypes.object.isRequired
+            grower: PropTypes.object.isRequired,
+            img: PropTypes.object.isRequired,
+            name: PropTypes.string.isRequired,
+            neighborhood:PropTypes.string.isRequired
+            
             
         }
-    
 
-render() {
-
-return (
-	var growers = props.growers
-	var imgs = props.imgs
- var highlightedIcon = {
-        url:  'http://maps.google.com/mapfiles/ms/icons/green-dot.png'}
+ componentDidMount() {
+    var  grower = this.props.grower
+  var img = this.props.img
+  var highlightedIcon = {
+        url:  'http://maps.google.com/mapfiles/ms/icons/green-dot.png'};
 
     var defaultIcon = {
         url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-    }
+    };
+
+    
+ 
        var marker = new window.google.maps.Marker({
-    position: {lat: {growers.latlng.lat}, lng: {growers.latlng.lng}},
-    map: map,
+    position: {lat: 40.33483, lng: -104.8534},
     animation: window.google.maps.Animation.DROP,
-    title: {growers.name}
+    title: 'Spierman'
    });
 
        var infowindow = new window.google.maps.InfoWindow ({
         
-       })
+       });
 
        let contentString = ReactDOMServer.renderToString(
-       	<MakeInfoWindow
-       		id={growers.id}
-       		name={growers.name}
-       		neighborhood={growers.neighborhood}
-       		address={growers.address}
-       	/>)
+        <MakeInfoWindow
+          name={grower.name}
+          neighborhood={grower.neighborhood}
+          address={grower.address}
+          img={img}
+        />)
 
        marker.addListener('mouseover', function() {
            this.setIcon(highlightedIcon);
@@ -54,8 +57,16 @@ return (
         infowindow.setContent(contentString)
         infowindow.open(map, this)
      });
+}
 
-     )
+render() {
+
+
+return (
+ <div>
+ </div>
+ 
+   )
 }
 }
 
