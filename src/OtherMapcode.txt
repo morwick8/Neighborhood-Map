@@ -18,3 +18,44 @@
          script.defer = true
          ref.parentNode.insertBefore(script, ref)
 }
+
+        var marker = new window.google.maps.Marker({
+    position: {lat: 40.33483, lng: -104.8534},
+    map: map,
+    animation: window.google.maps.Animation.DROP,
+    title: 'Hello World!'
+   });
+
+       var infowindow = new window.google.maps.InfoWindow ({
+        
+       })
+
+       let contentString = ReactDOMServer.renderToString(<MakeInfoWindow/>)
+
+       marker.addListener('mouseover', function() {
+           this.setIcon(highlightedIcon);
+         });
+         marker.addListener('mouseout', function() {
+        this.setIcon(defaultIcon);
+        });
+
+      marker.addListener('click', function() {
+        infowindow.setContent(contentString)
+        infowindow.open(map, this)
+     });
+
+        <Map
+        google={this.props.google}
+        zoom={14}
+       initialCenter={{
+         lat: 40.33483,
+         lng: -104.8534}}
+        places={growers}
+        >
+        <GetMarkers
+          google={this.props.google}
+          map={this.props.map}
+          growers={this.state.growers}
+          imgs={this.state.imgs}
+        />
+      </Map> 

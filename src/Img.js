@@ -1,28 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 
-class Img extends React.Component {
-
-static propTypes = {
-
-	img: PropTypes.object.isRequired
-}
-
-render() {
-		const {img} = this.props
-
-	return (
-		<div>
-			<a href={img.links.html}>
-				<img src={img.urls.thumb} alt={img.description} />
-			</a>
+const Img = props =>
+	<li>
+		<a href={props.link}>
+			<img src={props.url} alt="Unsplash Image here" />
+		</a>
 		<p>
 			<span>Photo by </span>
-			<a href={img.user.links.html}>{img.user.name}</a>
-			<a href={img.links.html}> See on Unsplash.com</a>
+			<a href={props.user}>{props.name}</a>
+			<a href={props.link}> See on Unsplash</a>
 		</p>
-		</div>
-	)
-}}
+	</li>;
 
-export default Img
+export default Img;

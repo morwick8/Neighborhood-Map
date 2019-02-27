@@ -10,7 +10,6 @@ const ImgList = props => {
 			<Img
 				url={img.urls.thumb}
 				user={img.user.links.html}
-				description={img.description}
 				name={img.user.name}
 				link={img.links.html}
 				key={img.id}
@@ -20,9 +19,9 @@ const ImgList = props => {
 		imgs = <NoImgs />;
 	}
 	return (
-		<div className="img-list">
-			{imgs[1]}
-		</div>
+		<ul className="img-list">
+			{imgs}
+		</ul>
 	);
 };
 

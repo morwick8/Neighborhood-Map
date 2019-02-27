@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-import * as growers from './data/growers.json'
 import {Map, Marker, InfoWindow} from 'google-maps-react'
 
 
@@ -28,14 +27,15 @@ showingInfoWindow: false,
 }
 
 renderMarkers() {
-   const growers = this.props.growers
-  const imgs = this.props.imgs
+   
   
  
-  
-  if (growers) {
-  return growers.map((grower, i) => {
-    return <Marker
+  const growers = this.props.growers
+  const imgs = this.props.imgs
+ 
+  var Markers = ({growers}) => {
+    return growers.map((grower, i) => {
+     <Marker
           key={ i }
           title={grower.name}
           label={grower.id}
@@ -43,7 +43,7 @@ renderMarkers() {
           address={grower.address}
           imgs={imgs[grower.id]}
           key={grower.index}
-          position={{ lat: this.grower.latlng.lat, lng: this.grower.latlng.lng }}
+          position={{ lat: grower.lat, lng: grower.lng }}
           animation={window.google.maps.Animation.DROP}
           icon={{defaultIcon}}>
   
@@ -53,11 +53,12 @@ renderMarkers() {
        </InfoWindow>
      </Marker>
   })
-}
+  }
 }
 
+
 render() {
-  return <div>{ this.renderMarkers() }</div>
+  return <div><Markers growers={growers}/></div>
 }
 
  
