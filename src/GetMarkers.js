@@ -68,4 +68,5 @@ render() {
 }
 
 export default GetMarkers
-		
+    
+

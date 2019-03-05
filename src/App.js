@@ -26,6 +26,7 @@ class App extends React.Component {
     componentDidMount() {
         this.renderMap();
         this.getPics();
+        this.setState({places: {places}});
         this.getMarkers()
 };
 
@@ -66,12 +67,7 @@ initMap = () =>  {
 
 
 
-var marker = new window.google.maps.Marker({
-    position: {lat: 40.33483, lng: -104.8534},
-    map: map,
-    animation: window.google.maps.Animation.DROP,
-    title: 'Grower',
-});
+
 
 
 
@@ -84,23 +80,22 @@ var highlightedIcon = {
 var defaultIcon = {
   url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
 };
-  {props.places && props.places.map((place, i) => {
+
+  {this.state.places && this.state.places.map((place, i) => {
     let lat = parseFloat(place.latitude, 10);
     let lng = parseFloat(place.longitude, 10);
-    var marker = new google.maps.Marker({
-      id: {place.id},
-      name: {place.name},
+    var marker = new window.google.maps.Marker({
       position: {lat: lat, lng: lng},
-      map: map,
-      animation: window.google.maps.Animation.DROP,
+      map: this.map,
       title:"Grower",
-      icon: defaultIcon
+      animation: window.google.maps.Animation.DROP,
+     icon: defaultIcon
     });
     var infowindow = new window.google.maps.InfoWindow ({
       position: {lat: lat, lng: lng}
     });
 
-    let contentString = ReactDOMServer.renderToString(<MakeInfoWindow place={place} img={this.state.imgs[{place.id}]}/>)
+    let contentString = ReactDOMServer.renderToString(<MakeInfoWindow place={place} img={this.state.imgs[1]}/>)
 
     marker.addListener('mouseover', function() {
       this.setIcon(highlightedIcon);
@@ -111,17 +106,17 @@ var defaultIcon = {
 
     marker.addListener('click', function() {
       infowindow.setContent(contentString)
-      infowindow.open(map, this)
+      infowindow.open(this.map, this)
     });
 
-    marker.setMap(map);
+    marker.setMap(this.map);
   })}
 };
 
  
 
 render() {
-      if (loadingImgState === 'true' ) {
+      if (this.state.loadingImgState === 'true' ) {
       return <h2>Loading...</h2>
     }
   return (

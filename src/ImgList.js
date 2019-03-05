@@ -25,4 +25,4 @@ const ImgList = props => {
 	);
 };
 
-export default ImgList;
+export default ImgList

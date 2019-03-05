@@ -36,3 +36,4 @@ render() {
 
 export default MakeInfoWindow
 		
+		
