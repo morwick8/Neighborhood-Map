@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import {Map, Marker, InfoWindow} from 'google-maps-react'
+import Img from './Img'
 
 
  
@@ -15,7 +16,7 @@ import {Map, Marker, InfoWindow} from 'google-maps-react'
 class GetMarkers extends React.Component {
 
  static propTypes = {
-        growers: PropTypes.array.isRequired,
+        places: PropTypes.array.isRequired,
         imgs: PropTypes.array.isRequired
         
 }
@@ -26,42 +27,61 @@ showingInfoWindow: false,
     selectedPlace: {}  
 }
 
-renderMarkers() {
+onMarkerClick = (props, marker, e) =>
+    this.setState({
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true
+    });
+
+  onClose = props => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null
+      });
+    }
+  };
+
+render() {
    
   
  
-  const growers = this.props.growers
+  const places = this.props.places
   const imgs = this.props.imgs
  
-  var Markers = ({growers}) => {
-    return growers.map((grower, i) => {
-     <Marker
-          key={ i }
-          title={grower.name}
-          label={grower.id}
-          neighborhood={grower.neighborhood}
-          address={grower.address}
-          imgs={imgs[grower.id]}
-          key={grower.index}
-          position={{ lat: grower.lat, lng: grower.lng }}
-          animation={window.google.maps.Animation.DROP}
-          icon={{defaultIcon}}>
+  var Markers = ({places}) => {
+    return places.map((place, i) => {
+      let lat = parseFloat(place.latitude, 10);
+      let lng = parseFloat(place.longitude, 10);
+
+      <Marker
+        onClick={this.onMarkerClick}
+        title={'Grower'}
+        id={place.id}
+        name={place.name}
+        position={{ lat: lat, lng: lng }}
+        animation={window.google.maps.Animation.DROP}
+        icon={{defaultIcon}}>
   
-          <InfoWindow
+        <InfoWindow
           marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}>
-       </InfoWindow>
-     </Marker>
-  })
+          visible={this.state.showingInfoWindow}
+          onClose={this.onClose}>
+         <div className="infoWindow">
+            <Img img={imgs[place.index]}/>
+            <h2>{place.name}</h2>
+            <h3>{place.neighborhood}</h3>
+            <h3>{place.address}</h3>
+          </div>
+        </InfoWindow>
+      </Marker>
+    })
   }
+
+return (Markers)
 }
 
-
-render() {
-  return <div><Markers growers={growers}/></div>
-}
-
- 
 
 
 
