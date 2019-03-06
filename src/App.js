@@ -356,7 +356,7 @@ render() {
          lat: 40.33483,
          lng: -104.8534
         }}> 
-        {places.map((place) => {
+        {places.forEach((place) => {
           return (    
  
             <Marker
