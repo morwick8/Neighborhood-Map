@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import MapContainer from "./MapContainer";
-import Header from "./Header"
-
-import "./App.css";
+import Header from "./Header";
+import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import "./App.css"
 
 const data = [
 				{

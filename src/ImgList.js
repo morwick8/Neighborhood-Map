@@ -2,27 +2,30 @@ import React from 'react';
 import Img from './Img';
 import NoImgs from './NoImgs';
 
-const ImgList = props => {
-	const results = props.data;
+class ImgList extends React.Component {
+
+render() {
+	const results = this.props.data;
 	let imgs;
-	if (results.length > 0) {
-		imgs = results.map(img =>
-			<Img
-				url={img.urls.thumb}
-				user={img.user.links.html}
-				name={img.user.name}
-				link={img.links.html}
-				key={img.id}
-			/>
-		);
-	} else {
-		imgs = <NoImgs />;
-	}
-	return (
-		<ul className="img-list">
-			{imgs}
+		return (
+	
+			<ul className="img-list">
+				{results.map(img =>
+						<li>
+							<a href={img.links.html}>
+							<img src={img.urls.thumb} alt="Unsplash" />
+						</a>
+					<p>
+					<span>Photo by </span>
+					<a href={img.user.links.html}>{img.user.name}</a>
+					<a href={img.links.html}> See on Unsplash</a>
+				</p>
+				</li>)}
+			
 		</ul>
-	);
-};
+	)
+	}
+}
+
 
 export default ImgList
