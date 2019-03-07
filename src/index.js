@@ -6,6 +6,15 @@ import Header from "./Header"
 import "./App.css";
 
 const data = [
+				{
+            "id": 0,
+            "name": "Jasmine",
+            "latitude": 40.3278975,
+            "longitude": -104.8399037,
+           "neighborhood": "Settlers Village",
+            "address": "2192 Stage Coach Dr, Milliken, CO"
+            },
+
          {
             "id": 1,
             "name": "Mickey Mouse",
@@ -258,16 +267,8 @@ const data = [
             "neighborhood": "Settlers Village",
             "address": "2522 Stage Coach Dr, Milliken, CO"
          
-            }, 
-            {
-            "id": 28,
-            "name": "Jasmine",
-            "latitude": 40.3278975,
-            "longitude": -104.8399037,
-           "neighborhood": "Settlers Village",
-            "address": "2192 Stage Coach Dr, Milliken, CO"
             }
-          ];
+           ];
 
 const GrowerList = props => {
   return (
@@ -276,7 +277,7 @@ const GrowerList = props => {
         {props.items.map((item, index) => {
           return (
             <li key={index} onClick={e => props.onClick(e, item)}>
-              {item.title}
+              {item.name}
             </li>
           );
         })}
@@ -284,6 +285,8 @@ const GrowerList = props => {
     </div>
   );
 };
+
+
 
 class App extends Component {
   state = {

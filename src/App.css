@@ -2,6 +2,9 @@
     text-align: center;
 }
 
+li {
+  cursor: pointer;
+}
  
  html, body {
      height: 100%;

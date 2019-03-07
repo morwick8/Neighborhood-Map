@@ -25,8 +25,8 @@ class MapContainer extends React.Component {
         error: null,
         showingInfoWindow: false,
         activeMarker: {},
-        selectedPlace: {},  
-        
+        selectedItem: {},  
+        selectedImage: {}
         }    
     };
 
@@ -51,12 +51,17 @@ getPics() {
 
 
  
- onMarkerClick = (props, marker, e) =>
+ onMarkerClick = (props, marker, e) => {
     this.setState({
-      selectedPlace: props,
+      selectedItem: props,
       activeMarker: marker,
       showingInfoWindow: true
     });
+
+  const imgResult = this.state.imgs.filter(img => img.index === this.props.selectedItem.id);
+  this.setState({selectedImage: imgResult})
+}
+
 
   onClose = props => {
     if (this.state.showingInfoWindow) {
@@ -67,7 +72,13 @@ getPics() {
     }
   };
 
-
+toggleBounce = (marker) => {
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null);
+        } else {
+          marker.setAnimation(window.google.maps.Animation.BOUNCE);
+        }
+      }
 
   
 
@@ -76,7 +87,7 @@ getPics() {
 render() {
     const google = window.google;
     const data = this.props.data;
-    const center = this.props.center;
+    const center = this.props.center
 
      if (this.state.loadingImgState === 'true' ) {
       return <h2>Loading...</h2>
@@ -97,12 +108,14 @@ render() {
               key={item.id}
               title={item.name}
               name={item.name}
+              neighborhood={item.neighborhood}
+              address={item.address}
               position={{ lat: item.latitude, lng: item.longitude }}
               onClick={this.onMarkerClick}
               icon={{
                 url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
               }}
-              animation={this.props.google.maps.Animation.DROP}
+              animation={this.props.google.maps.Animation.DROP} 
             />
           ))}
          <InfoWindow
@@ -114,9 +127,10 @@ render() {
             }}
             onClose={this.onClose}>
               <div>
-                <h2>{this.props.selectedItem.name}</h2>
-                <h3>{this.props.selectedItem.neighborhood}</h3>
-                <h3>{this.props.selectedItem.address}</h3>
+                <img src={this.state.selectedItem.image} alt="Smiley face" height="42" width="42"/>
+                <h2>{this.state.selectedItem.title}</h2>
+                <h3>{this.state.selectedItem.neighborhood}</h3>
+                <h3>{this.state.selectedItem.address}</h3>
               </div>
             </InfoWindow>
     
