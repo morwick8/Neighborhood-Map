@@ -6,7 +6,6 @@ class ImgList extends React.Component {
 
 render() {
 	const results = this.props.data;
-	let imgs;
 		return (
 	
 			<ul className="img-list">

@@ -26,7 +26,7 @@ class MapContainer extends React.Component {
         showingInfoWindow: false,
         activeMarker: {},
         selectedItem: {},  
-        selectedImage: {}
+        selectedImage: {},
         }    
     };
 
@@ -80,7 +80,6 @@ toggleBounce = (marker) => {
         }
       }
 
-  
 
 
 
@@ -127,10 +126,11 @@ render() {
             }}
             onClose={this.onClose}>
               <div>
-                <img src={this.state.selectedItem.image} alt="Smiley face" height="42" width="42"/>
+                <ImgList data={this.state.imgs}/>
                 <h2>{this.state.selectedItem.title}</h2>
                 <h3>{this.state.selectedItem.neighborhood}</h3>
                 <h3>{this.state.selectedItem.address}</h3>
+                <h3>backyard garden</h3>
               </div>
             </InfoWindow>
     

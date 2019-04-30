@@ -12,8 +12,17 @@ const data = [
             "latitude": 40.3278975,
             "longitude": -104.8399037,
            "neighborhood": "Settlers Village",
-            "address": "2192 Stage Coach Dr, Milliken, CO"
+            "address": "2192 Carriage Dr, Milliken, CO"
             },
+            {
+            "id": 0,
+            "name": "Wonder Woman",
+            "latitude": 40.326043,
+            "longitude": -104.835552,
+           "neighborhood": "Settlers Village",
+            "address": "2544 Stage Coach Dr, Milliken, CO"
+            },
+
 
          {
             "id": 1,
@@ -277,7 +286,7 @@ const GrowerList = props => {
         {props.items.map((item, index) => {
           return (
             <li key={index} onClick={e => props.onClick(e, item)}>
-              {item.name}
+              {item.name} {item.address} {item.address}
             </li>
           );
         })}
@@ -302,7 +311,7 @@ class App extends Component {
     return (
       <div>
         <Header/>
- 
+        <h1>Centennial Farms</h1>
         <GrowerList items={data} onClick={this.showInfo.bind(this)} />
         <MapContainer
           center={{ lat: 40.33483, lng: -104.8534 }}
